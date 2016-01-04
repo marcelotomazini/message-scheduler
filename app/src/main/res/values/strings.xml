@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Message scheduler</string>
+    <string name="message">Message</string>
+    <string name="date">Date</string>
+    <string name="time">Time</string>
+    <string name="schedule">Schedule</string>
+    <string name="message_scheduled">Message scheduled</string>
+</resources>
