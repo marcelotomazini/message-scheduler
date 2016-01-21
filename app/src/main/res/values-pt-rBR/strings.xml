@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Agendador de mensagens</string>
+    <string name="message">Mensagem</string>
+    <string name="date">Dia</string>
+    <string name="time">Hora</string>
+    <string name="schedule">Agendar</string>
+    <string name="message_scheduled">Mensagem agendada</string>
+    <string name="message_not_sent">Mensagem agendada não foi enviada</string>
+</resources>
