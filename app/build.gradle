@@ -5,16 +5,25 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.marcelotomazini.message_scheduler"
+        applicationId "com.marcelotomazini.messagescheduler"
         minSdkVersion 14
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }
+    signingConfigs {
+        release {
+            storeFile file("messagescheduler.keystore")
+            storePassword System.console().readLine("\nKeystore password: ")
+            keyAlias "messagescheduler"
+            keyPassword System.console().readLine("\nKey password: ")
+        }
+    }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 }
