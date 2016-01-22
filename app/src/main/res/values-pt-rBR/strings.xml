@@ -6,4 +6,5 @@
     <string name="schedule">Agendar</string>
     <string name="message_scheduled">Mensagem agendada</string>
     <string name="message_not_sent">Mensagem agendada não foi enviada</string>
+    <string name="invalid_date_time">Dia/hora inválidos</string>
 </resources>

@@ -68,7 +68,10 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     }
 
     public void schedule(View view) {
-        Date date = calendar.after(Calendar.getInstance()) ? calendar.getTime() : Calendar.getInstance().getTime();
+        if(calendar.before(Calendar.getInstance())) {
+            Toast.makeText(this, R.string.invalid_date_time, Toast.LENGTH_LONG).show();
+            return;
+        }
 
         Intent sendMessageIntent = getIntent().getParcelableExtra(SEND_MESSAGE);
         Intent notificationIntent = new Intent(this, MessageSender.class);
@@ -78,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, date.getTime(), pendingIntent);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTime().getTime(), pendingIntent);
 
         finish();
         Toast.makeText(this, R.string.message_scheduled, Toast.LENGTH_LONG).show();
