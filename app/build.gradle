@@ -14,17 +14,11 @@ android {
         versionCode 1
         versionName "1.0"
     }
-    signingConfigs {
-        release {
-            storeFile file("messagescheduler.keystore")
-            keyAlias "messagescheduler"
-        }
-    }
+
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
         }
     }
 }
@@ -48,6 +42,10 @@ gradle.taskGraph.whenReady { taskGraph ->
                     button(defaultButton: true, text: 'OK', actionPerformed: {
                         android.signingConfigs.release.storePassword = inputKeystorePassword.password;
                         android.signingConfigs.release.keyPassword = inputKeyPassword.password;
+                        android.signingConfigs.release.storeFile = file("messagescheduler.keystore");
+                        android.signingConfigs.release.keyAlias = "messagescheduler";
+                        android.buildTypes.release.signingConfig = android.signingConfigs.release;
+
                         dispose();
                     })
                 }
