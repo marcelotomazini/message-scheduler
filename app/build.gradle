@@ -35,7 +35,7 @@ android {
 }
 
 gradle.taskGraph.whenReady { taskGraph ->
-    if(taskGraph.hasTask(':app:packageRelease')) {
+    if(taskGraph.hasTask(':app:ssembleRelease')) {
         new SwingBuilder().edt {
             dialog(modal: true,
                     title: 'Enter passwords',
