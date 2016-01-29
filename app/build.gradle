@@ -19,7 +19,6 @@ android {
     }
     signingConfigs {
         release {
-            println "Using password $keystorePasswordValue"
             storeFile file("messagescheduler.keystore")
             storePassword keystorePasswordValue
             keyAlias "messagescheduler"
