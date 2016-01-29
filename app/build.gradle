@@ -1,5 +1,10 @@
+import groovy.swing.SwingBuilder
+
 apply plugin: 'com.android.application'
 apply plugin: 'net.researchgate.release'
+
+def keystorePasswordValue = ''
+def keyPasswordValue = ''
 
 android {
     compileSdkVersion 23
@@ -15,9 +20,9 @@ android {
     signingConfigs {
         release {
             storeFile file("messagescheduler.keystore")
-            storePassword System.console().readLine("\nKeystore password: ")
+            storePassword keystorePasswordValue
             keyAlias "messagescheduler"
-            keyPassword System.console().readLine("\nKey password: ")
+            keyPassword keystorePasswordValue
         }
     }
     buildTypes {
@@ -29,6 +34,32 @@ android {
     }
 }
 
+gradle.taskGraph.whenReady { taskGraph ->
+    if(taskGraph.hasTask(':app:assembleRelease')) {
+        new SwingBuilder().edt {
+            dialog(modal: true,
+                    title: 'Enter passwords',
+                    alwaysOnTop: true,
+                    resizable: false,
+                    locationRelativeTo: null,
+                    pack: true,
+                    show: true
+            ) {
+                vbox {
+                    label(text: "Keystore password:")
+                    inputKeystorePassword = passwordField()
+                    label(text: "Key password:")
+                    inputKeyPassword = passwordField()
+                    button(defaultButton: true, text: 'OK', actionPerformed: {
+                        keystorePasswordValue = inputKeystorePassword.password;
+                        keyPasswordValue = inputKeyPassword.password;
+                        dispose();
+                    })
+                }
+            }
+        }
+    }
+}
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'

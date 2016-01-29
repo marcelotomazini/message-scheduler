@@ -4,16 +4,19 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.SystemClock;
 import android.support.v7.app.AlertDialog;
 
 public class MessageSender extends BroadcastReceiver {
 
     public static final String MSG = "MSG";
     public static final String SEND_MESSAGE = "SEND_MESSAGE";
+    public static final int ONE_MINUTE = 60000;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         openApp(context, "sneer.main");
+        SystemClock.sleep(ONE_MINUTE);
 
         String msg = intent.getStringExtra(MSG);
         Intent sendMessage = intent.getParcelableExtra(SEND_MESSAGE);
