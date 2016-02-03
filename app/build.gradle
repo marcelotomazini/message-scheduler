@@ -16,48 +16,22 @@ android {
     }
     signingConfigs {
         release {
+            storePassword = System.console().readLine("\nKeystore password: ")
+            keyPassword = System.console().readLine("\nKey password: ")
+            storeFile = file("messagescheduler.keystore");
+            keyAlias = "messagescheduler";
 		}
     }
     buildTypes {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
-    }
-}
-
-gradle.taskGraph.whenReady { taskGraph ->
-    if(taskGraph.hasTask(':app:release')) {
-        new SwingBuilder().edt {
-            dialog(modal: true,
-                    title: 'Enter passwords',
-                    alwaysOnTop: true,
-                    resizable: false,
-                    locationRelativeTo: null,
-                    pack: true,
-                    show: true
-            ) {
-                vbox {
-                    label(text: "Keystore password:")
-                    inputKeystorePassword = passwordField()
-                    label(text: "Key password:")
-                    inputKeyPassword = passwordField()
-                    button(defaultButton: true, text: 'OK', actionPerformed: {
-                        android.signingConfigs.release.storePassword = inputKeystorePassword.password;
-                        android.signingConfigs.release.keyPassword = inputKeyPassword.password;
-                        android.signingConfigs.release.storeFile = file("messagescheduler.keystore");
-                        android.signingConfigs.release.keyAlias = "messagescheduler";
-                        android.buildTypes.release.signingConfig = android.signingConfigs.release;
-
-                        dispose();
-                    })
-                }
-            }
-        }
     }
 }
 
