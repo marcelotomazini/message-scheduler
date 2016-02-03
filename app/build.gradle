@@ -15,7 +15,9 @@ android {
         versionName "1.0"
     }
     signingConfigs {
-        release
+        release {
+
+		}
     }
     buildTypes {
         release {
