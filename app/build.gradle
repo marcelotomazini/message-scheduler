@@ -14,8 +14,8 @@ android {
     }
     signingConfigs {
         release {
-            storePassword = System.console().readPassword("\nKeystore password: ")
-            keyPassword = System.console().readPassword("\nKey password: ")
+            storePassword = new String(System.console().readPassword("\nKeystore password: "))
+            keyPassword = new String(System.console().readPassword("\nKey password: "))
             storeFile = file("messagescheduler.keystore");
             keyAlias = "messagescheduler";
 		}
