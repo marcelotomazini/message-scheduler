@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         notificationIntent.putExtra(MSG, txtMessage.getText().toString());
         notificationIntent.putExtra(SEND_MESSAGE, sendMessageIntent);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, currentTimeMillis(), notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTime().getTime(), pendingIntent);
 
@@ -98,5 +98,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
         calendar.set(Calendar.MINUTE, minute);
         update();
+    }
+
+    private static int currentTimeMillis() {
+        return (int) (System.currentTimeMillis() % Integer.MAX_VALUE);
     }
 }
