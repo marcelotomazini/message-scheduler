@@ -6,16 +6,23 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
+        def versionPropsFile = file('gradle.properties')
+        def Properties versionProps = new Properties()
+        versionProps.load(new FileInputStream(versionPropsFile))
+        def vName = versionProps['version'].replace("-SNAPSHOT", "")
+        def vCode = versionProps['VERSION_CODE'].toInteger()
+
+
         applicationId "com.marcelotomazini.messagescheduler"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 2
-        versionName "1.0.2"
+        versionCode vCode
+        versionName vName
     }
     signingConfigs {
         release {
-            storePassword = new String(System.console().readPassword("\nKeystore password: "))
-            keyPassword = new String(System.console().readPassword("\nKey password: "))
+            /*storePassword = new String(System.console().readPassword("\nKeystore password: "))
+            keyPassword = new String(System.console().readPassword("\nKey password: "))*/
             storeFile = file("messagescheduler.keystore");
             keyAlias = "messagescheduler";
 		}
